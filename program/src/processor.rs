@@ -14,12 +14,8 @@ pub fn process_instruction(
     instruction_data: &[u8],
 ) -> ProgramResult {
     if let Ok(add_info) = AddInfo::try_from_slice(instruction_data) {
-        //if add_info.instruction == 0 {
             return instructions::add::insert_data(program_id, accounts, add_info);
-        //}
     };
-
     
-
     Err(ProgramError::InvalidInstructionData)
 }
