@@ -3,4 +3,6 @@ yarn.lock
 .pnp.cjs
 .pnp.loader.mjs
 yarn.lock
+.yarn/
+/program/Cargo.lock
 

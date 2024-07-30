@@ -18,10 +18,11 @@ pub fn insert_data(
 
     let accounts_iter = &mut accounts.iter();
     let pk1 = next_account_info(accounts_iter)?;
-    let pk2 = next_account_info(accounts_iter)?;
+    let target_account = next_account_info(accounts_iter)?;
+    //let pk2 = next_account_info(accounts_iter)?;
 
     msg! ("Info is going to be added");
 
-    add_info.details.serialize(&mut &mut target_account.data.borrow_mut()[..])?;
+    add_info.info.serialize(&mut &mut target_account.data.borrow_mut()[..])?;
     Ok(())
 }

@@ -1,11 +1,12 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 
+#[derive(BorshDeserialize, BorshSerialize, Debug)]
 pub struct AddInfo {
     pub info: String
 }
 
 impl AddInfo{
-    pub fn new (info:String)-> Self {
+    pub fn new(info:String)-> Self {
 
         AddInfo{
             info,
