@@ -1,5 +1,7 @@
 # Basic Template for Deploying a Program on the Solana Blockchain
 
+This program is designed for native deployment on the Solana blockchain. It utilizes Solana's native APIs and is written in Rust without the use of frameworks like Anchor.
+
  1. Install Solana-cli:
  Follow the instructions in the official Solana CLI installation guide: https://docs.solanalabs.com/es/cli/install
 
