@@ -1,14 +1,16 @@
 use borsh::BorshSerialize;
-
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     msg,
     pubkey::Pubkey,
+    system_instruction,
+    rent::Rent,
+    program::invoke,
+    sysvar::Sysvar,
 };
-
 use crate::state::AddInfo;
-use solana_program::program_error::ProgramError;
+
 
 pub fn insert_data(
     program_id: &Pubkey,
@@ -17,12 +19,32 @@ pub fn insert_data(
 ) -> ProgramResult {
 
     let accounts_iter = &mut accounts.iter();
-    let pk1 = next_account_info(accounts_iter)?;
     let target_account = next_account_info(accounts_iter)?;
-    //let pk2 = next_account_info(accounts_iter)?;
+    let payer = next_account_info(accounts_iter)?;
+    let system_program = next_account_info(accounts_iter)?;
 
-    msg! ("Info is going to be added");
+    let add_info_boxed = Box::new(add_info);
 
-    add_info.info.serialize(&mut &mut target_account.data.borrow_mut()[..])?;
+    let account_span = add_info_boxed.try_to_vec()?.len();
+    let lamports_required = Rent::get()?.minimum_balance(account_span);
+
+    invoke(
+        &system_instruction::create_account(
+            payer.key,
+            target_account.key,
+            lamports_required,
+            account_span as u64,
+            program_id,
+        ),
+        &[
+            payer.clone(),
+            target_account.clone(),
+            system_program.clone(),
+        ],
+    )?;
+    
+    msg!("Info is going to be added");
+
+    add_info_boxed.serialize(&mut &mut target_account.data.borrow_mut()[..])?;
     Ok(())
 }
