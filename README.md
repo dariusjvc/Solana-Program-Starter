@@ -13,7 +13,7 @@ This program is designed for native deployment on the Solana blockchain. It util
  3. Install program dependencies:
  Run the following command to install the necessary dependencies: 
   ```
-   yarn install
+   npm install
   ```
  4. Compile and Deploy the Program:
  Execute the following script to compile and deploy your program:
