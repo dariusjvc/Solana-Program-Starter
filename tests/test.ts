@@ -62,13 +62,13 @@ describe("Test to insert and get data from a calculated account created in the s
         ]);
 
         const accountData = {
-            publicKey: "***HereTheInsertedData***"
+            data:"***HereTheInsertedData***"
         };
 
         const info = JSON.stringify(accountData);
 
-        const publicKeyInfo = new AccountInfo({
-            info: info // Pasar la cadena JSON al campo 'details'
+        const accountInfo = new AccountInfo({
+            info: info 
         });
 
         let ix = new TransactionInstruction({
@@ -85,7 +85,7 @@ describe("Test to insert and get data from a calculated account created in the s
             ],
             programId: PROGRAM_ID,
             data: (
-                publicKeyInfo
+                accountInfo
             ).toBuffer(),
         });
         await sendAndConfirmTransaction(
@@ -101,10 +101,10 @@ describe("Test to insert and get data from a calculated account created in the s
 
     it("Get the data from the calculated account", async () => {
 
-        const publicKeyInfo = await connection.getAccountInfo(addressNewAccount.publicKey);
+        const result = await connection.getAccountInfo(addressNewAccount.publicKey);
 
-        if (publicKeyInfo !== null) {
-            const dataAsBuffer = publicKeyInfo.data;
+        if (result !== null) {
+            const dataAsBuffer = result.data;
             const dataAsString = Buffer.from(dataAsBuffer).toString('utf-8').trim();
 
             console.log("Inserted data:", dataAsString);
