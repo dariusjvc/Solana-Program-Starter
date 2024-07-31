@@ -20,3 +20,13 @@ This program is designed for native deployment on the Solana blockchain. It util
   ```
    ./cicd
   ```
+ 5. In the file /test/test.ts fill in the varaibles:
+  ```
+   DEPLOYED_PROGRAM_ADDRESS
+   PATH_TO_YOUR_SOLANA_ID_JSON
+  ```
+ 6. Run tests with:
+  ```
+   npm test
+  ```
+
